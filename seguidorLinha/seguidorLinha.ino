@@ -32,33 +32,30 @@ void loop(){
   Valor_Sensor1 = digitalRead(Sensor1);
   Valor_Sensor2 = digitalRead(Sensor2);
 
+  Serial.println(Valor_Sensor1);
+  // Serial.println(Valor_Sensor2);
+
   // Aqui criamos nossa condicional que define como o motor se comporta
-  //LEMBRANDO QUE CONVECIONALMENTE ASSUMIMOS O VALOR 0 PARA PRETO E O VALOR 1 PARA BRANCO 
-  
-  if((Valor_Sensor1 == 1) && (Valor_Sensor2 == 1)){
+  //LEMBRANDO QUE CONVECIONALMENTE ASSUMIMOS O VALOR 0 PARA PRETO E O VALOR 1 PARA BRANCO
+
+  if((Valor_Sensor1 == 0) && (Valor_Sensor2 == 0)){
     digitalWrite(dir1, HIGH);
+   digitalWrite(dir2, HIGH);
     analogWrite(motor1, 150);
-    digitalWrite(dir2, HIGH);
-    analogWrite(motor2, 150);
-  } 
-  else
-  if((Valor_Sensor1 == 1) && (Valor_Sensor2 == 0)){
-    digitalWrite(dir1, LOW);
-    analogWrite(motor1, 0);
-    digitalWrite(dir2, HIGH);
     analogWrite(motor2, 150);
   }
-  else
-  // adicionei essa condicao para o robo virar para o outro lado tambem
+
   if((Valor_Sensor1 == 0) && (Valor_Sensor2 == 1)){
-    digitalWrite(dir1, HIGH);
-    analogWrite(motor1, 150);
-    digitalWrite(dir2, LOW);
-    analogWrite(motor2, 0);
-  } else {
     digitalWrite(dir1, LOW);
+    digitalWrite(dir2, HIGH);
     analogWrite(motor1, 0);
+    analogWrite(motor2, 150);
+  }
+
+  if((Valor_Sensor1 == 1) && (Valor_Sensor2 == 0)){
+    digitalWrite(dir1, HIGH);
     digitalWrite(dir2, LOW);
+    analogWrite(motor1, 150);
     analogWrite(motor2, 0);
   }
   
