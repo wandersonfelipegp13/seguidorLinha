@@ -1,54 +1,57 @@
-//Lembrando que os pinos e as variaveis dependem de sua montagem , portanto os valor
-const int motor1 = 3; // Pino_Velocidade 1º Motor ( 0 a 255)_ Porta ATV_A ponte H;
-const int motor2 = 10; //Pino_Velocidade 2º Motor ( 0 a 255) _ Porta ATV_B ponte H;
-const int dir1 = 2; //Pino_Direção do 1º Motor: Para frente / Para trás (HIGH ou LOW)
-const int dir2 = 9; //Pino_Direção do 2º Motor: Para frente / Para trás (HIGH ou LOW)
+// Pino de velocidade do 1º motor (0 a 255). Porta ATV_A da ponte H.
+const int MOTOR1 = 3;
 
-//Agora definiremos os pinos responsáveis pelos sensores:
-#define Sensor1 5
-#define Sensor2 6
-bool Valor_Sensor1 = 0;
-bool Valor_Sensor2 = 0;
+// Pino de velocidade do 2º motor (0 a 255). Porta ATV_B ponte H.
+const int MOTOR2 = 10;
 
-void setup(){
-  // Definimos os motores e as direções como saídas.
-  pinMode(motor1, OUTPUT);
-  pinMode(motor2, OUTPUT);
-  pinMode(dir1, OUTPUT);
-  pinMode(dir2, OUTPUT);
-  // Agora definimos a direção inicial dos motores.
-  digitalWrite(dir1, HIGH);
-  digitalWrite(dir2, HIGH);
-  // Por ultimo colocaremos os pinos digitais dos sensores como entradas
-  pinMode(Sensor1, INPUT);
-  pinMode(Sensor2, INPUT);
-  Serial.begin(9600);
+// Pino de direção do 1º motor. HIGH para frente e LOW para trás.
+const int DIR1 = 2; 
+
+// Pino de direção do 2º motor. HIGH para frente e LOW para trás.
+const int DIR2 = 9; 
+
+// Pinos responsáveis pelos sensores
+#define SENSOR1 5
+#define SENSOR2 6
+bool valorSensor1 = 0;
+bool valorSensor2 = 0;
+
+void setup() {
+
+    // Motores e direções como saídas.
+    pinMode(MOTOR1, OUTPUT);
+    pinMode(MOTOR2, OUTPUT);
+    pinMode(DIR1, OUTPUT);
+    pinMode(DIR2, OUTPUT);
+    
+    // Direção inicial dos motores.
+    digitalWrite(DIR1, HIGH);
+    digitalWrite(DIR2, HIGH);
+  
+    // Pinos digitais dos sensores como entradas.
+    pinMode(SENSOR1, INPUT);
+    pinMode(SENSOR2, INPUT);
+
 }
 
-void loop(){
+void loop() {
   
-  //Neste processo armazenamos o valor lido pelo sensor na variável que controla
-  // a velocidade dos motores.
-  Valor_Sensor1 = digitalRead(Sensor1);
-  Valor_Sensor2 = digitalRead(Sensor2);
+    valorSensor1 = digitalRead(SENSOR1);
+    valorSensor2 = digitalRead(SENSOR2);
 
-  // Aqui criamos nossa condicional que define como o motor se comporta
-  //LEMBRANDO QUE CONVECIONALMENTE ASSUMIMOS O VALOR 0 PARA PRETO E O VALOR 1 PARA BRANCO
+    if ((valorSensor1 == 0) && (valorSensor2 == 0)){
+        analogWrite(MOTOR1, 150);
+        analogWrite(MOTOR2, 150);
+    }
 
-  if((Valor_Sensor1 == 0) && (Valor_Sensor2 == 0)){
-    analogWrite(motor1, 150);
-    analogWrite(motor2, 150);
-  }
+    if ((valorSensor1 == 1) && (valorSensor2 == 0)){
+        analogWrite(MOTOR, 0);
+        analogWrite(MOTOR, 150);
+    }
 
-  if((Valor_Sensor1 == 1) && (Valor_Sensor2 == 0)){
-    analogWrite(motor1, 0);
-    analogWrite(motor2, 150);
-  }
-
-  // adicionei essa condicao para o robo virar para o outro lado tambem
-  if((Valor_Sensor1 == 0) && (Valor_Sensor2 == 1)){
-    analogWrite(motor1, 150);
-    analogWrite(motor2, 0);
-  }
+    if ((valorSensor1 == 0) && (valorSensor2 == 1)){
+        analogWrite(MOTOR1, 150); 
+        analogWrite(MOTOR2, 0);
+    }
   
 }
