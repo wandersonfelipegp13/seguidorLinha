@@ -45,8 +45,8 @@ void loop() {
     }
 
     if ((valorSensor1 == 1) && (valorSensor2 == 0)){
-        analogWrite(MOTOR, 0);
-        analogWrite(MOTOR, 150);
+        analogWrite(MOTOR1, 0);
+        analogWrite(MOTOR2, 150);
     }
 
     if ((valorSensor1 == 0) && (valorSensor2 == 1)){
